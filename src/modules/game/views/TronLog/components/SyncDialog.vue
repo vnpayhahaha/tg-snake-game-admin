@@ -1,4 +1,13 @@
-<script setup lang="ts">
+<!--
+ - MineAdmin is committed to providing solutions for quickly building web applications
+ - Please view the LICENSE file that was distributed with this source code,
+ - For the full copyright and license information.
+ - Thank you very much for using MineAdmin.
+ -
+ - @Author X.Mo<root@imoi.cn>
+ - @Link   https://github.com/mineadmin
+-->
+<script setup lang="tsx">
 import type { MaFormExpose } from '@mineadmin/form'
 import type { Ref } from 'vue'
 import { syncTransactions } from '~/game/api/TronTransactionLog.ts'
@@ -16,6 +25,28 @@ const model = ref({
   end_block: undefined as number | undefined,
 })
 
+// 表单配置
+const formColumns = computed(() => [
+  {
+    label: () => t('tronTransactionLog.group_id'),
+    prop: 'group_id',
+    render: () => <el-input-number v-model={model.value.group_id} placeholder={t('tronTransactionLog.syncGroupIdTip')} controls={false} style="width: 100%" />,
+    renderTip: t('tronTransactionLog.syncGroupIdTip'),
+  },
+  {
+    label: () => t('tronTransactionLog.start_block'),
+    prop: 'start_block',
+    render: () => <el-input-number v-model={model.value.start_block} placeholder={t('tronTransactionLog.syncStartBlockTip')} controls={false} style="width: 100%" />,
+    renderTip: t('tronTransactionLog.syncStartBlockTip'),
+  },
+  {
+    label: () => t('tronTransactionLog.end_block'),
+    prop: 'end_block',
+    render: () => <el-input-number v-model={model.value.end_block} placeholder={t('tronTransactionLog.syncEndBlockTip')} controls={false} style="width: 100%" />,
+    renderTip: t('tronTransactionLog.syncEndBlockTip'),
+  },
+])
+
 // 同步交易
 async function submit() {
   const data: any = {}
@@ -29,7 +60,7 @@ async function submit() {
   const response = await syncTransactions(data)
   if (response.code === ResultCode.SUCCESS) {
     const result = response.data
-    msg.success(`${t('tronLog.syncSuccess')}: ${result.synced_count} 条, 有效: ${result.valid_count}, 无效: ${result.invalid_count}`)
+    msg.success(`${t('tronTransactionLog.syncSuccess')}: ${result.synced_count} 条, 有效: ${result.valid_count}, 无效: ${result.invalid_count}`)
   }
   return response
 }
@@ -50,26 +81,7 @@ defineExpose({ submit, maForm: formRef, reset })
   <ma-form
     ref="formRef"
     v-model="model"
-    :columns="[
-      {
-        label: () => t('tronLog.group_id'),
-        prop: 'group_id',
-        render: () => <el-input-number v-model={model.group_id} placeholder={t('tronLog.syncGroupIdTip')} controls={false} style='width: 100%' />,
-        renderTip: t('tronLog.syncGroupIdTip'),
-      },
-      {
-        label: () => t('tronLog.start_block'),
-        prop: 'start_block',
-        render: () => <el-input-number v-model={model.start_block} placeholder={t('tronLog.syncStartBlockTip')} controls={false} style='width: 100%' />,
-        renderTip: t('tronLog.syncStartBlockTip'),
-      },
-      {
-        label: () => t('tronLog.end_block'),
-        prop: 'end_block',
-        render: () => <el-input-number v-model={model.end_block} placeholder={t('tronLog.syncEndBlockTip')} controls={false} style='width: 100%' />,
-        renderTip: t('tronLog.syncEndBlockTip'),
-      },
-    ]"
+    :columns="formColumns"
     :options="{
       labelWidth: '120px',
     }"

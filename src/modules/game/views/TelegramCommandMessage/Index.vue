@@ -1,3 +1,12 @@
+<!--
+ - MineAdmin is committed to providing solutions for quickly building web applications
+ - Please view the LICENSE file that was distributed with this source code,
+ - For the full copyright and license information.
+ - Thank you very much for using MineAdmin.
+ -
+ - @Author X.Mo<root@imoi.cn>
+ - @Link   https://github.com/mineadmin
+-->
 <script setup lang="tsx">
 import type { MaProTableExpose, MaProTableOptions, MaProTableSchema } from '@mineadmin/pro-table'
 import type { Ref } from 'vue'
@@ -32,7 +41,7 @@ const options = ref<MaProTableOptions>({
   // 表格距离底部的像素偏移适配
   adaptionOffsetBottom: 161,
   header: {
-    mainTitle: () => local('telegramCommandMessage.index'),
+    mainTitle: () => t('telegramCommandMessage.index'),
   },
   // 表格参数
   tableOptions: {
@@ -88,7 +97,7 @@ async function handleExport() {
     msg.success(t('crud.exportSuccess'))
   }
   catch (err: any) {
-    msg.alertError(err.response?.data?.message || t('crud.exportFailed'))
+    msg.alertError(err)
   }
   finally {
     exportLoading.value = false
@@ -98,7 +107,7 @@ async function handleExport() {
 // 批量删除（软删除）
 function handleDelete() {
   const ids = selections.value.map((item: any) => item.id)
-  msg.delConfirm(t('crud.delMessage')).then(async () => {
+  msg.confirm(t('crud.delMessage')).then(async () => {
     const response = await deleteByIds(ids)
     if (response.code === ResultCode.SUCCESS) {
       msg.success(t('crud.delSuccess'))
@@ -110,7 +119,7 @@ function handleDelete() {
 // 批量真实删除
 function handleRealDelete() {
   const ids = selections.value.map((item: any) => item.id)
-  msg.delConfirm(t('telegramCommandMessage.realDeleteConfirm')).then(async () => {
+  msg.confirm(t('telegramCommandMessage.realDeleteConfirm')).then(async () => {
     const response = await realDelete(ids)
     if (response.code === ResultCode.SUCCESS) {
       msg.success(t('crud.delSuccess'))
@@ -143,7 +152,7 @@ function handleRealDelete() {
             :disabled="selections.length < 1"
             @click="handleDelete"
           >
-            {{ t('crud.batchDelete') }}
+            {{ t('crud.delete') }}
           </el-button>
           <el-button
             v-auth="['tg_game:command_message:realDelete']"

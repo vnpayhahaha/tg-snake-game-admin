@@ -1,3 +1,12 @@
+<!--
+ - MineAdmin is committed to providing solutions for quickly building web applications
+ - Please view the LICENSE file that was distributed with this source code,
+ - For the full copyright and license information.
+ - Thank you very much for using MineAdmin.
+ -
+ - @Author X.Mo<root@imoi.cn>
+ - @Link   https://github.com/mineadmin
+-->
 <script setup lang="tsx">
 import type { MaProTableExpose, MaProTableOptions, MaProTableSchema } from '@mineadmin/pro-table'
 import type { Ref } from 'vue'
@@ -42,7 +51,7 @@ const maDialog: UseDialogExpose = useDialog({
               maDialog.close()
               proTableRef.value.refresh()
             }).catch((err: any) => {
-              msg.alertError(err.response.data?.message)
+              msg.alertError(err)
             })
             break
           // 修改
@@ -52,7 +61,7 @@ const maDialog: UseDialogExpose = useDialog({
               maDialog.close()
               proTableRef.value.refresh()
             }).catch((err: any) => {
-              msg.alertError(err.response.data?.message)
+              msg.alertError(err)
             })
             break
         }
@@ -80,7 +89,7 @@ const walletChangeDialog: UseDialogExpose = useDialog({
           msg.error(res.message)
         }
       }).catch((err: any) => {
-        msg.alertError(err.response.data?.message)
+        msg.alertError(err)
       })
     }).catch()
     okLoadingState(false)
@@ -92,7 +101,7 @@ const options = ref<MaProTableOptions>({
   // 表格距离底部的像素偏移适配
   adaptionOffsetBottom: 161,
   header: {
-    mainTitle: () => local('gameGroupConfig.index'),
+    mainTitle: () => t('gameGroupConfig.index'),
   },
   // 表格参数
   tableOptions: {
@@ -130,7 +139,7 @@ const schema = ref<MaProTableSchema>({
 // 批量删除
 function handleDelete() {
   const ids = selections.value.map((item: any) => item.id)
-  msg.delConfirm(t('crud.delMessage')).then(async () => {
+  msg.confirm(t('crud.delMessage')).then(async () => {
     const response = await deleteByIds(ids)
     if (response.code === ResultCode.SUCCESS) {
       msg.success(t('crud.delSuccess'))
@@ -157,38 +166,47 @@ function handleDelete() {
       </template>
 
       <template #toolbarLeft>
-        <el-button-group>
+        <el-button
+          v-auth="['tg_game:config:delete']"
+          type="danger"
+          plain
+          :disabled="selections.length < 1"
+          @click="handleDelete"
+        >
+          {{ t('crud.delete') }}
+        </el-button>
+      </template>
+
+      <!-- 数据为空时 -->
+      <template #empty>
+        <el-empty>
           <el-button
-            v-auth="['tg_game:config:delete']"
-            type="danger"
-            plain
-            :disabled="selections.length < 1"
-            @click="handleDelete"
+            v-auth="['tg_game:config:create']"
+            type="primary"
+            @click="() => {
+              maDialog.setTitle(t('crud.add'))
+              maDialog.open({ formType: 'add' })
+            }"
           >
-            {{ t('crud.batchDelete') }}
+            {{ t('crud.add') }}
           </el-button>
-        </el-button-group>
+        </el-empty>
       </template>
     </MaProTable>
 
     <!-- 主表单弹窗 -->
-    <ma-dialog
-      v-model="maDialog.visible.value"
-      :title="maDialog.title.value"
-      :before-close="() => maDialog.close()"
-      @ok="maDialog.ok"
-    >
-      <Form ref="formRef" :data="maDialog.data.value?.data" :form-type="maDialog.data.value?.formType" />
-    </ma-dialog>
+    <component :is="maDialog.Dialog">
+      <template #default="{ formType, data }">
+        <!-- 新增、编辑表单 -->
+        <Form ref="formRef" :form-type="formType" :data="data" />
+      </template>
+    </component>
 
     <!-- 钱包变更弹窗 -->
-    <ma-dialog
-      v-model="walletChangeDialog.visible.value"
-      :title="walletChangeDialog.title.value"
-      :before-close="() => walletChangeDialog.close()"
-      @ok="walletChangeDialog.ok"
-    >
-      <WalletChangeForm ref="walletChangeFormRef" :data="walletChangeDialog.data.value?.data" />
-    </ma-dialog>
+    <component :is="walletChangeDialog.Dialog">
+      <template #default="{ formType, data }">
+        <WalletChangeForm ref="walletChangeFormRef" :data="data" />
+      </template>
+    </component>
   </div>
 </template>

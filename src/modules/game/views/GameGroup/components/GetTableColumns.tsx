@@ -1,4 +1,14 @@
 /**
+ * MineAdmin is committed to providing solutions for quickly building web applications
+ * Please view the LICENSE file that was distributed with this source code,
+ * For the full copyright and license information.
+ * Thank you very much for using MineAdmin.
+ *
+ * @Author X.Mo<root@imoi.cn>
+ * @Link   https://github.com/mineadmin
+ */
+
+/**
  * 游戏群组表格列配置
  */
 import type { MaProTableColumns, MaProTableExpose } from '@mineadmin/pro-table'
@@ -166,7 +176,7 @@ export default function getTableColumns(
             type: 'danger',
             on: {
               click: async (row: GameGroupVo, proxy: MaProTableExpose) => {
-                msg.delConfirm(t('crud.delMessage')).then(async () => {
+                msg.confirm(t('crud.delMessage')).then(async () => {
                   const res = await deleteByIds([row.id])
                   if (res.code === ResultCode.SUCCESS) {
                     msg.success(t('crud.delSuccess'))

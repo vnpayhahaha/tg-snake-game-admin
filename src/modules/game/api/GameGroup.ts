@@ -5,6 +5,10 @@ export interface GameGroupVo {
   id: number
   // 配置ID
   config_id: number
+  // 群组名称（前端扩展字段，用于创建/编辑）
+  group_name?: string
+  // 状态（前端扩展字段，用于创建/编辑）1-正常 2-停用
+  status?: number
   // Telegram群组ID
   tg_chat_id: number
   // 奖池金额

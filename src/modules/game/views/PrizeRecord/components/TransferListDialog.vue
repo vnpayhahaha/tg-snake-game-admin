@@ -1,3 +1,12 @@
+<!--
+ - MineAdmin is committed to providing solutions for quickly building web applications
+ - Please view the LICENSE file that was distributed with this source code,
+ - For the full copyright and license information.
+ - Thank you very much for using MineAdmin.
+ -
+ - @Author X.Mo<root@imoi.cn>
+ - @Link   https://github.com/mineadmin
+-->
 <script setup lang="ts">
 import type { Ref } from 'vue'
 import type { PrizeRecordVo } from '~/game/api/PrizeRecord.ts'
@@ -29,7 +38,7 @@ async function loadTransfers() {
     }
   }
   catch (err: any) {
-    msg.alertError(err.response?.data?.message || t('crud.error'))
+    msg.alertError(err)
   }
   finally {
     loading.value = false

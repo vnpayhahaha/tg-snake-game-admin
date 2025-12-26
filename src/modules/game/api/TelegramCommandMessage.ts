@@ -6,7 +6,7 @@ export interface TelegramCommandMessageVo {
   // 群组ID
   group_id: number
   // 群组名称
-  group_name: string
+  group_name?: string
   // Telegram群组ID
   tg_chat_id: number
   // Telegram用户ID
@@ -18,29 +18,38 @@ export interface TelegramCommandMessageVo {
   // 消息文本
   message_text: string
   // 响应文本
-  response_text: string
-  // 是否成功
+  response_text?: string
+  // 是否成功:0=否,1=是
   is_success: number
   // 错误信息
-  error_message: string
+  error_message?: string
   // 创建时间
-  created_at: string
+  created_at?: string
   // 更新时间
-  updated_at: string
+  updated_at?: string
 }
 
 export interface CommandStatisticsVo {
+  // 总消息数
   total_messages: number
+  // 成功消息数
   success_messages: number
+  // 失败消息数
   failed_messages: number
+  // 命令分解统计
   commands_breakdown: Record<string, number>
 }
 
 export interface DailyStatisticsVo {
+  // 日期
   date: string
+  // 总消息数
   total_messages: number
+  // 成功消息数
   success_messages: number
+  // 失败消息数
   failed_messages: number
+  // 每小时分解统计
   hourly_breakdown: Array<{ hour: number; count: number }>
 }
 
@@ -84,7 +93,7 @@ export function detail(id: number): Promise<ResponseStruct<TelegramCommandMessag
   return useHttp().get(`/admin/tg_game/command_message/${id}`)
 }
 
-// 删除命令消息（软删除）
+// 删除命令消息(软删除)
 export function deleteByIds(ids: number[]): Promise<ResponseStruct<null>> {
   return useHttp().delete('/admin/tg_game/command_message', { data: ids })
 }

@@ -1,4 +1,14 @@
 /**
+ * MineAdmin is committed to providing solutions for quickly building web applications
+ * Please view the LICENSE file that was distributed with this source code,
+ * For the full copyright and license information.
+ * Thank you very much for using MineAdmin.
+ *
+ * @Author X.Mo<root@imoi.cn>
+ * @Link   https://github.com/mineadmin
+ */
+
+/**
  * 蛇身节点表格列配置
  */
 import type { MaProTableColumns, MaProTableExpose } from '@mineadmin/pro-table'
@@ -54,7 +64,7 @@ export default function getTableColumns(
 
   // 删除节点
   const handleDelete = (row: SnakeNodeVo) => {
-    msg.delConfirm(t('crud.delMessage')).then(async () => {
+    msg.confirm(t('crud.delMessage')).then(async () => {
       const response = await deleteByIds([row.id])
       if (response.code === ResultCode.SUCCESS) {
         msg.success(t('crud.delSuccess'))

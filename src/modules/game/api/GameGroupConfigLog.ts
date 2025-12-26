@@ -3,20 +3,26 @@ import type { ResponseStruct } from '#/global'
 export interface GameGroupConfigLogVo {
   // 主键ID
   id: number
-  // 配置ID
+  // 配置表ID
   config_id: number
-  // 操作类型
-  action: string
-  // 来源：1-管理后台，2-Telegram Bot，3-系统
-  source: number
-  // 旧数据（JSON）
-  old_data: string
-  // 新数据（JSON）
-  new_data: string
-  // 操作者ID
-  operator_id: number
-  // 创建时间
-  created_at: string
+  // Telegram群组ID
+  tg_chat_id: number
+  // 变更参数(JSON格式,记录本次提交的字段)
+  change_params?: string
+  // 变更前的完整配置(JSON格式)
+  old_config?: string
+  // 变更后的完整配置(JSON格式)
+  new_config?: string
+  // 操作人
+  operator: string
+  // 操作IP
+  operator_ip: string
+  // 变更来源:1=后台编辑,2=TG群指令
+  change_source: number
+  // Telegram消息ID(仅TG指令时有值)
+  tg_message_id?: number
+  // 变更时间
+  created_at?: string
 }
 
 // 获取配置变更日志列表

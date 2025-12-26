@@ -1,69 +1,71 @@
+<!--
+ - MineAdmin is committed to providing solutions for quickly building web applications
+ - Please view the LICENSE file that was distributed with this source code,
+ - For the full copyright and license information.
+ - Thank you very much for using MineAdmin.
+ -
+ - @Author X.Mo<root@imoi.cn>
+ - @Link   https://github.com/mineadmin
+-->
 <script setup lang="ts">
 import type { MaFormExpose } from '@mineadmin/form'
-import type { Ref } from 'vue'
 import type { GameGroupVo } from '~/game/api/GameGroup.ts'
 
 import { create, save } from '~/game/api/GameGroup.ts'
 import getFormItems from './components/GetFormItems.tsx'
+import useForm from '@/hooks/useForm.ts'
+import { ResultCode } from '@/utils/ResultCode.ts'
 
-const props = defineProps<{
-  data?: GameGroupVo
+const { formType = 'add', data = null } = defineProps<{
   formType: 'add' | 'edit'
+  data?: GameGroupVo | null
 }>()
 
-const { globalTrans: t, localTrans: local } = useTrans()
-const formRef = ref<MaFormExpose>() as Ref<MaFormExpose>
+const t = useTrans().globalTrans
+const maFormRef = ref<MaFormExpose>()
+const formModel = ref<Partial<GameGroupVo>>({})
 
-// 表单模型
-const model = ref<GameGroupVo>({
-  id: 0,
-  config_id: 0,
-  group_name: '',
-  status: 1,
-  tg_chat_id: 0,
-  prize_pool_amount: 0,
-  current_snake_nodes: '',
-  last_snake_nodes: '',
-  last_prize_nodes: '',
-  last_prize_amount: 0,
-  last_prize_address: '',
-  last_prize_serial_no: '',
-  last_prize_at: '',
-  version: 0,
-  created_at: '',
-  updated_at: '',
+useForm('maFormRef').then((form: MaFormExpose) => {
+  if (formType === 'edit' && data) {
+    Object.keys(data).map((key: string) => {
+      formModel.value[key] = data[key]
+    })
+  }
+  form.setItems(getFormItems(formType, t, formModel.value))
+  form.setOptions({
+    labelWidth: '150px',
+  })
 })
 
-watch(
-  () => props.data,
-  (val) => {
-    if (val && props.formType === 'edit') {
-      model.value = { ...val }
-    }
-  },
-  { immediate: true }
-)
-
 // 新增
-async function add() {
-  return await create(model.value)
+function add(): Promise<any> {
+  return new Promise((resolve, reject) => {
+    create(formModel.value).then((res: any) => {
+      res.code === ResultCode.SUCCESS ? resolve(res) : reject(res)
+    }).catch((err) => {
+      reject(err.response.message)
+    })
+  })
 }
 
 // 编辑
-async function edit() {
-  return await save(model.value.id, model.value)
+function edit(): Promise<any> {
+  return new Promise((resolve, reject) => {
+    save(formModel.value.id as number, formModel.value).then((res: any) => {
+      res.code === ResultCode.SUCCESS ? resolve(res) : reject(res)
+    }).catch((err) => {
+      reject(err.response.message)
+    })
+  })
 }
 
-defineExpose({ add, edit, maForm: formRef })
+defineExpose({
+  add,
+  edit,
+  maForm: maFormRef,
+})
 </script>
 
 <template>
-  <ma-form
-    ref="formRef"
-    v-model="model"
-    :columns="getFormItems(formType, t, model)"
-    :options="{
-      labelWidth: '150px',
-    }"
-  />
+  <ma-form ref="maFormRef" v-model="formModel" />
 </template>

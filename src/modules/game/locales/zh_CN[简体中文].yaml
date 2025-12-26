@@ -1,3 +1,106 @@
+# 顶级菜单命名空间（用于菜单显示）
+tgGame:
+  index: 贪吃蛇游戏
+  group:
+    index: 游戏群组
+    list: 游戏群组列表
+    detail: 游戏群组详情
+    statistics: 游戏群组统计
+    snake: 查看当前蛇身
+    create: 游戏群组新增
+    update: 游戏群组编辑
+    delete: 游戏群组删除
+    resetPrizePool: 重置奖池
+  config:
+    index: 群组配置
+    list: 群组配置列表
+    detail: 配置详情
+    create: 配置新增
+    update: 配置编辑
+    delete: 配置删除
+    startWalletChange: 开始钱包变更
+    cancelWalletChange: 取消钱包变更
+    completeWalletChange: 完成钱包变更
+  configLog:
+    index: 配置变更日志
+    list: 变更日志列表
+    byConfig: 按配置查询
+    walletChanges: 钱包变更历史
+  walletBinding:
+    index: 玩家钱包绑定
+    list: 钱包绑定列表
+    byTgUser: 按用户查询
+    create: 绑定新增
+    batchImport: 批量导入
+    unbind: 解除绑定
+  walletBindingLog:
+    index: 钱包绑定日志
+    list: 绑定日志列表
+    byUser: 按用户查询
+  snakeNode:
+    index: 蛇身节点
+    list: 节点列表
+    active: 活跃节点
+    byWalletCycle: 按钱包周期查询
+    byPlayer: 按玩家查询
+    byTxHash: 按交易哈希查询
+    dailyStatistics: 当日统计
+    archive: 归档节点
+    updateStatus: 更新状态
+  prize:
+    index: 中奖记录
+    list: 中奖记录列表
+    detail: 中奖详情
+    bySerial: 按流水号查询
+    byGroup: 按群组查询
+    statistics: 中奖统计
+    transfers: 查看转账详情
+    reprocess: 重新处理
+    updateStatus: 更新状态
+  prizeTransfer:
+    index: 中奖转账
+    list: 转账列表
+    pending: 待处理转账
+    failed: 失败转账
+    byPrize: 按中奖记录查询
+    byTxHash: 按交易哈希查询
+    retry: 重试转账
+    batchRetry: 批量重试
+    markSuccess: 标记为成功
+    updateStatus: 更新状态
+  dispatchQueue:
+    index: 派奖队列
+    list: 队列列表
+    pending: 待处理队列
+    failed: 失败队列
+    byPrize: 按中奖记录查询
+    retry: 重试派发
+    batchRetry: 批量重试
+    markSuccess: 标记为成功
+  tronLog:
+    index: TRON交易日志
+    list: 交易日志列表
+    unprocessed: 未处理交易
+    byGroup: 按群组查询
+    byTxHash: 按交易哈希查询
+    byAddress: 按钱包地址查询
+    statistics: 交易统计
+    reprocess: 重新处理
+    syncTransactions: 同步区块链交易
+  commandMessage:
+    index: 命令消息记录
+    list: 消息记录列表
+    detail: 消息详情
+    byGroup: 按群组查询
+    byUser: 按用户查询
+    byCommand: 按命令类型查询
+    statistics: 消息统计
+    dailyStatistics: 当日统计
+    export: 导出记录
+    delete: 删除记录
+    realDelete: 真实删除
+
+# 以下是代码中使用的详细配置
 game:
   index: 贪吃蛇游戏管理
 
@@ -30,6 +133,8 @@ gameGroup:
   viewStatistics: 查看统计
   group_name: 群组名称
   status: 状态
+  status_normal: 正常
+  status_disabled: 停用
 
 # 群组配置
 gameGroupConfig:
@@ -49,6 +154,8 @@ gameGroupConfig:
   platform_fee_rate: 平台手续费比例
   telegram_admin_whitelist: Telegram管理员白名单
   status: 状态
+  status_normal: 正常
+  status_disabled: 停用
   created_at: 创建时间
   updated_at: 更新时间
   wallet_cycle: 钱包周期
@@ -119,6 +226,7 @@ playerWalletBindingLog:
 # 蛇身节点
 snakeNode:
   index: 蛇身节点
+  id: 节点ID
   group_id: 群组ID
   wallet_cycle: 钱包周期
   ticket_number: 购彩凭证
@@ -137,10 +245,15 @@ snakeNode:
   statusMatched: 已中奖
   statusUnmatched: 未中奖
   statusArchived: 已归档
+  status_active: 活跃
+  status_matched: 已中奖
+  status_unmatched: 未中奖
+  status_archived: 已归档
   viewActiveNodes: 查看活跃节点
   viewByWalletCycle: 按钱包周期查看
   viewByPlayer: 按玩家查看
   viewByTxHash: 按交易哈希查看
+  viewTxHash: 查看交易
   dailyStatistics: 当日统计
   total_nodes: 节点总数
   total_amount: 投注总额
@@ -150,10 +263,13 @@ snakeNode:
   archive: 归档
   archiveConfirm: 确认要归档此节点吗？
   updateStatus: 更新状态
+  updateStatusConfirm: 确认要更新此节点状态吗？
+  setActive: 设为活跃
 
 # 中奖记录
 prizeRecord:
   index: 中奖记录
+  id: 记录ID
   group_id: 群组ID
   prize_serial_no: 开奖流水号
   wallet_cycle: 钱包周期
@@ -178,10 +294,16 @@ prizeRecord:
   statusCompleted: 已完成
   statusFailed: 失败
   statusPartialFailed: 部分失败
+  status_pending: 待处理
+  status_processing: 转账中
+  status_completed: 已完成
+  status_failed: 失败
+  status_partial_failed: 部分失败
   viewStatistics: 查看统计
   viewTransfers: 查看转账详情
   reprocess: 重新处理
   reprocessConfirm: 确认要重新处理此中奖记录吗？
+  updateStatusConfirm: 确认要更新此记录状态吗？
   total_prizes: 中奖次数
   total_prize_amount: 中奖总额
   total_winners: 中奖人数
@@ -192,6 +314,7 @@ prizeRecord:
 # 中奖转账
 prizeTransfer:
   index: 中奖转账
+  id: 转账ID
   prize_record_id: 中奖记录ID
   prize_serial_no: 开奖流水号
   node_id: 节点ID
@@ -207,15 +330,23 @@ prizeTransfer:
   statusProcessing: 处理中
   statusSuccess: 成功
   statusFailed: 失败
+  status_pending: 待处理
+  status_processing: 处理中
+  status_success: 成功
+  status_failed: 失败
   viewPending: 查看待处理
   viewFailed: 查看失败
   retry: 重试
   retryConfirm: 确认要重试此转账吗？
   batchRetry: 批量重试
   batchRetryConfirm: 确认要批量重试选中的转账吗？
+  batchRetrySuccess: 批量重试成功
   markSuccess: 标记为成功
   markSuccessConfirm: 确认要标记此转账为成功吗？
+  markSuccessPrompt: 请输入交易哈希以标记为成功
   markSuccessWithHash: 请输入交易哈希
+  txHashPlaceholder: 请输入交易哈希
+  viewTxHash: 查看交易
 
 # 派奖队列
 dispatchQueue:
@@ -280,10 +411,15 @@ tronTransactionLog:
   syncTransactionsConfirm: 确认要同步区块链交易吗？
   start_block: 起始区块高度
   end_block: 结束区块高度
+  syncGroupIdTip: 可选，指定群组ID进行同步
+  syncStartBlockTip: 可选，指定起始区块高度
+  syncEndBlockTip: 可选，指定结束区块高度
+  syncSuccess: 同步成功
 
 # Telegram命令消息
 telegramCommandMessage:
   index: Telegram命令消息
+  id: 消息ID
   group_id: 群组ID
   group_name: 群组名称
   tg_chat_id: Telegram群组ID
@@ -293,12 +429,15 @@ telegramCommandMessage:
   message_text: 消息文本
   response_text: 响应文本
   is_success: 是否成功
+  success: 成功
+  failed: 失败
   error_message: 错误信息
   created_at: 创建时间
   updated_at: 更新时间
   viewByGroup: 按群组查看
   viewByUser: 按用户查看
   viewByCommand: 按命令查看
+  viewDetail: 查看详情
   viewStatistics: 查看统计
   dailyStatistics: 当日统计
   total_messages: 消息总数
@@ -307,6 +446,7 @@ telegramCommandMessage:
   commands_breakdown: 命令分布
   hourly_breakdown: 小时分布
   exportData: 导出数据
+  export: 导出数据
   exportDataConfirm: 确认要导出数据吗？
   realDelete: 真实删除
   realDeleteConfirm: 确认要真实删除选中的消息吗？此操作不可恢复！

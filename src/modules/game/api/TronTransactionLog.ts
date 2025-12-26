@@ -11,22 +11,24 @@ export interface TronTransactionLogVo {
   from_address: string
   // 接收地址
   to_address: string
-  // 金额
+  // 金额(TRX)
   amount: number
+  // 交易类型:1=入账,2=出账
+  transaction_type: number
   // 区块高度
   block_height: number
   // 区块时间戳
   block_timestamp: number
   // 交易状态
   status: string
-  // 是否有效
-  is_valid: boolean
+  // 是否有效交易
+  is_valid: number
   // 无效原因
-  invalid_reason: string
+  invalid_reason?: string
   // 是否已处理
-  processed: boolean
+  processed: number
   // 创建时间
-  created_at: string
+  created_at?: string
 }
 
 export interface TronStatisticsVo {

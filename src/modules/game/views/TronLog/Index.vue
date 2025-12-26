@@ -1,3 +1,12 @@
+<!--
+ - MineAdmin is committed to providing solutions for quickly building web applications
+ - Please view the LICENSE file that was distributed with this source code,
+ - For the full copyright and license information.
+ - Thank you very much for using MineAdmin.
+ -
+ - @Author X.Mo<root@imoi.cn>
+ - @Link   https://github.com/mineadmin
+-->
 <script setup lang="tsx">
 import type { MaProTableExpose, MaProTableOptions, MaProTableSchema } from '@mineadmin/pro-table'
 import type { Ref } from 'vue'
@@ -40,7 +49,7 @@ const syncDialog: UseDialogExpose = useDialog({
           msg.error(res.message)
         }
       }).catch((err: any) => {
-        msg.alertError(err.response?.data?.message)
+        msg.alertError(err)
       })
     }).catch()
     okLoadingState(false)
@@ -52,7 +61,7 @@ const options = ref<MaProTableOptions>({
   // 表格距离底部的像素偏移适配
   adaptionOffsetBottom: 161,
   header: {
-    mainTitle: () => local('tronLog.index'),
+    mainTitle: () => t('tronLog.index'),
   },
   // 表格参数
   tableOptions: {
@@ -90,7 +99,7 @@ const schema = ref<MaProTableSchema>({
 // 批量删除
 function handleDelete() {
   const ids = selections.value.map((item: any) => item.id)
-  msg.delConfirm(t('crud.delMessage')).then(async () => {
+  msg.confirm(t('crud.delMessage')).then(async () => {
     const response = await deleteByIds(ids)
     if (response.code === ResultCode.SUCCESS) {
       msg.success(t('crud.delSuccess'))
@@ -125,7 +134,7 @@ function handleDelete() {
             :disabled="selections.length < 1"
             @click="handleDelete"
           >
-            {{ t('crud.batchDelete') }}
+            {{ t('crud.delete') }}
           </el-button>
         </el-button-group>
       </template>
