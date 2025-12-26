@@ -1,0 +1,312 @@
+game:
+  index: Snake Game Management
+
+# Game Group
+gameGroup:
+  index: Game Groups
+  config_id: Config ID
+  tg_chat_id: Telegram Chat ID
+  prize_pool_amount: Prize Pool Amount
+  current_snake_nodes: Current Snake Nodes
+  last_snake_nodes: Last Snake Nodes
+  last_prize_nodes: Last Prize Nodes
+  last_prize_amount: Last Prize Amount
+  last_prize_address: Last Prize Address
+  last_prize_serial_no: Last Prize Serial No
+  last_prize_at: Last Prize Time
+  version: Version
+  created_at: Created At
+  updated_at: Updated At
+  snake_length: Snake Length
+  active_players: Active Players
+  total_nodes: Total Nodes
+  total_bet_amount: Total Bet Amount
+  total_prizes: Total Prizes
+  total_prize_amount: Total Prize Amount
+  current_pool_amount: Current Pool Amount
+  resetPrizePool: Reset Prize Pool
+  resetPrizePoolConfirm: Are you sure you want to reset the prize pool for this group?
+  viewSnake: View Snake
+  viewStatistics: View Statistics
+  group_name: Group Name
+  status: Status
+
+# Game Group Config
+gameGroupConfig:
+  index: Group Configurations
+  tenant_id: Tenant ID
+  tg_chat_id: Telegram Chat ID
+  tg_chat_title: Chat Title
+  wallet_address: Wallet Address
+  wallet_change_count: Wallet Change Count
+  pending_wallet_address: Pending Wallet Address
+  wallet_change_status: Wallet Change Status
+  wallet_change_start_at: Change Start Time
+  wallet_change_end_at: Change End Time
+  hot_wallet_address: Hot Wallet Address
+  hot_wallet_private_key: Hot Wallet Private Key
+  bet_amount: Bet Amount
+  platform_fee_rate: Platform Fee Rate
+  telegram_admin_whitelist: Telegram Admin Whitelist
+  status: Status
+  created_at: Created At
+  updated_at: Updated At
+  wallet_cycle: Wallet Cycle
+  new_wallet_address: New Wallet Address
+  cooldown_minutes: Cooldown Minutes
+  startWalletChange: Start Wallet Change
+  cancelWalletChange: Cancel Wallet Change
+  completeWalletChange: Complete Wallet Change
+  walletChangeNormal: Normal
+  walletChangeChanging: Changing
+  walletChangeConfirm: Are you sure you want to start wallet change?
+  walletChangeCancelConfirm: Are you sure you want to cancel wallet change?
+  tg_group_name: Group Name
+
+# Config Change Log
+gameGroupConfigLog:
+  index: Config Change Logs
+  config_id: Config ID
+  action: Action Type
+  source: Source
+  old_data: Old Data
+  new_data: New Data
+  operator_id: Operator ID
+  created_at: Created At
+  sourceAdmin: Admin Panel
+  sourceTelegram: Telegram Bot
+  sourceSystem: System Auto
+  viewHistory: View History
+  walletChanges: Wallet Change History
+
+# Player Wallet Binding
+playerWalletBinding:
+  index: Player Wallet Bindings
+  group_id: Group ID
+  tg_user_id: Telegram User ID
+  tg_username: Telegram Username
+  tg_first_name: First Name
+  tg_last_name: Last Name
+  wallet_address: Wallet Address
+  bind_at: Bind Time
+  created_at: Created At
+  updated_at: Updated At
+  unbind: Unbind
+  unbindConfirm: Are you sure you want to unbind this wallet?
+  batchImport: Batch Import
+  importTemplate: Download Import Template
+  importSuccess: Import Successful
+  importFailed: Import Failed
+
+# Player Wallet Binding Log
+playerWalletBindingLog:
+  index: Wallet Binding Logs
+  group_id: Group ID
+  tg_user_id: Telegram User ID
+  tg_username: Telegram Username
+  action: Action Type
+  old_wallet_address: Old Wallet Address
+  new_wallet_address: New Wallet Address
+  source: Source
+  created_at: Created At
+  actionBind: Bind
+  actionUnbind: Unbind
+  actionUpdate: Update
+  sourceAdmin: Admin Panel
+  sourceTelegram: Telegram Bot
+  sourceSystem: System Auto
+
+# Snake Node
+snakeNode:
+  index: Snake Nodes
+  group_id: Group ID
+  wallet_cycle: Wallet Cycle
+  ticket_number: Ticket Number
+  ticket_serial_no: Ticket Serial No
+  player_address: Player Address
+  player_tg_username: Player Telegram Username
+  player_tg_user_id: Player Telegram User ID
+  amount: Amount
+  tx_hash: Transaction Hash
+  block_height: Block Height
+  daily_sequence: Daily Sequence
+  status: Status
+  matched_prize_id: Prize Record ID
+  created_at: Created At
+  statusActive: Active
+  statusMatched: Matched
+  statusUnmatched: Unmatched
+  statusArchived: Archived
+  viewActiveNodes: View Active Nodes
+  viewByWalletCycle: View By Wallet Cycle
+  viewByPlayer: View By Player
+  viewByTxHash: View By Transaction Hash
+  dailyStatistics: Daily Statistics
+  total_nodes: Total Nodes
+  total_amount: Total Amount
+  unique_players: Unique Players
+  active_nodes: Active Nodes
+  matched_nodes: Matched Nodes
+  archive: Archive
+  archiveConfirm: Are you sure you want to archive this node?
+  updateStatus: Update Status
+
+# Prize Record
+prizeRecord:
+  index: Prize Records
+  group_id: Group ID
+  prize_serial_no: Prize Serial No
+  wallet_cycle: Wallet Cycle
+  ticket_number: Winning Ticket
+  winner_node_id_first: First Winner Node ID
+  winner_node_id_last: Last Winner Node ID
+  winner_node_ids: All Winner Node IDs
+  total_amount: Total Amount
+  platform_fee: Platform Fee
+  fee_rate: Fee Rate
+  prize_pool: Prize Pool
+  prize_amount: Prize Amount
+  prize_per_winner: Prize Per Winner
+  pool_remaining: Pool Remaining
+  winner_count: Winner Count
+  status: Status
+  version: Version
+  created_at: Created At
+  updated_at: Updated At
+  statusPending: Pending
+  statusTransferring: Transferring
+  statusCompleted: Completed
+  statusFailed: Failed
+  statusPartialFailed: Partial Failed
+  viewStatistics: View Statistics
+  viewTransfers: View Transfer Details
+  reprocess: Reprocess
+  reprocessConfirm: Are you sure you want to reprocess this prize record?
+  total_prizes: Total Prizes
+  total_prize_amount: Total Prize Amount
+  total_winners: Total Winners
+  total_platform_fee: Total Platform Fee
+  jackpot_count: Jackpot Count
+  range_match_count: Range Match Count
+
+# Prize Transfer
+prizeTransfer:
+  index: Prize Transfers
+  prize_record_id: Prize Record ID
+  prize_serial_no: Prize Serial No
+  node_id: Node ID
+  to_address: To Address
+  amount: Amount
+  tx_hash: Transaction Hash
+  status: Status
+  retry_count: Retry Count
+  error_message: Error Message
+  created_at: Created At
+  updated_at: Updated At
+  statusPending: Pending
+  statusProcessing: Processing
+  statusSuccess: Success
+  statusFailed: Failed
+  viewPending: View Pending
+  viewFailed: View Failed
+  retry: Retry
+  retryConfirm: Are you sure you want to retry this transfer?
+  batchRetry: Batch Retry
+  batchRetryConfirm: Are you sure you want to batch retry selected transfers?
+  markSuccess: Mark as Success
+  markSuccessConfirm: Are you sure you want to mark this transfer as success?
+  markSuccessWithHash: Please enter transaction hash
+
+# Dispatch Queue
+dispatchQueue:
+  index: Dispatch Queue
+  prize_record_id: Prize Record ID
+  prize_transfer_id: Prize Transfer ID
+  group_id: Group ID
+  prize_serial_no: Prize Serial No
+  priority: Priority
+  status: Status
+  retry_count: Retry Count
+  max_retry: Max Retry
+  task_data: Task Data
+  error_message: Error Message
+  scheduled_at: Scheduled At
+  started_at: Started At
+  completed_at: Completed At
+  version: Version
+  created_at: Created At
+  statusPending: Pending
+  statusProcessing: Processing
+  statusCompleted: Completed
+  statusFailed: Failed
+  viewPending: View Pending
+  viewFailed: View Failed
+  retry: Retry
+  retryConfirm: Are you sure you want to retry this dispatch?
+  batchRetry: Batch Retry
+  batchRetryConfirm: Are you sure you want to batch retry selected dispatches?
+  markSuccess: Mark as Success
+  markSuccessConfirm: Are you sure you want to mark this dispatch as success?
+
+# TRON Transaction Log
+tronTransactionLog:
+  index: TRON Transaction Logs
+  group_id: Group ID
+  tx_hash: Transaction Hash
+  from_address: From Address
+  to_address: To Address
+  amount: Amount
+  block_height: Block Height
+  block_timestamp: Block Timestamp
+  status: Status
+  is_valid: Is Valid
+  invalid_reason: Invalid Reason
+  processed: Processed
+  created_at: Created At
+  viewUnprocessed: View Unprocessed
+  viewByGroup: View By Group
+  viewByTxHash: View By Transaction Hash
+  viewByAddress: View By Address
+  viewStatistics: View Statistics
+  total_transactions: Total Transactions
+  total_amount: Total Amount
+  valid_transactions: Valid Transactions
+  invalid_transactions: Invalid Transactions
+  processed_transactions: Processed Transactions
+  unprocessed_transactions: Unprocessed Transactions
+  reprocess: Reprocess
+  reprocessConfirm: Are you sure you want to reprocess this transaction?
+  syncTransactions: Sync Transactions
+  syncTransactionsConfirm: Are you sure you want to sync blockchain transactions?
+  start_block: Start Block
+  end_block: End Block
+
+# Telegram Command Message
+telegramCommandMessage:
+  index: Telegram Command Messages
+  group_id: Group ID
+  group_name: Group Name
+  tg_chat_id: Telegram Chat ID
+  tg_user_id: Telegram User ID
+  tg_username: Telegram Username
+  command: Command Type
+  message_text: Message Text
+  response_text: Response Text
+  is_success: Is Success
+  error_message: Error Message
+  created_at: Created At
+  updated_at: Updated At
+  viewByGroup: View By Group
+  viewByUser: View By User
+  viewByCommand: View By Command
+  viewStatistics: View Statistics
+  dailyStatistics: Daily Statistics
+  total_messages: Total Messages
+  success_messages: Success Messages
+  failed_messages: Failed Messages
+  commands_breakdown: Commands Breakdown
+  hourly_breakdown: Hourly Breakdown
+  exportData: Export Data
+  exportDataConfirm: Are you sure you want to export data?
+  realDelete: Real Delete
+  realDeleteConfirm: Are you sure you want to permanently delete selected messages? This action cannot be undone!

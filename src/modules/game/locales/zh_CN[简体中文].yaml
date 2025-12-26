@@ -1,0 +1,312 @@
+game:
+  index: 贪吃蛇游戏管理
+
+# 游戏群组
+gameGroup:
+  index: 游戏群组
+  config_id: 配置ID
+  tg_chat_id: Telegram群组ID
+  prize_pool_amount: 奖池金额
+  current_snake_nodes: 当前蛇身节点
+  last_snake_nodes: 上次蛇身节点
+  last_prize_nodes: 上次中奖节点
+  last_prize_amount: 上次中奖金额
+  last_prize_address: 上次中奖地址
+  last_prize_serial_no: 上次中奖流水号
+  last_prize_at: 上次中奖时间
+  version: 版本号
+  created_at: 创建时间
+  updated_at: 更新时间
+  snake_length: 蛇身长度
+  active_players: 活跃玩家数
+  total_nodes: 节点总数
+  total_bet_amount: 投注总额
+  total_prizes: 中奖次数
+  total_prize_amount: 中奖总额
+  current_pool_amount: 当前奖池金额
+  resetPrizePool: 重置奖池
+  resetPrizePoolConfirm: 确认要重置此群组的奖池吗？
+  viewSnake: 查看蛇身
+  viewStatistics: 查看统计
+  group_name: 群组名称
+  status: 状态
+
+# 群组配置
+gameGroupConfig:
+  index: 群组配置
+  tenant_id: 租户ID
+  tg_chat_id: Telegram群组ID
+  tg_chat_title: 群组标题
+  wallet_address: 钱包地址
+  wallet_change_count: 钱包变更次数
+  pending_wallet_address: 待更新钱包地址
+  wallet_change_status: 钱包变更状态
+  wallet_change_start_at: 变更开始时间
+  wallet_change_end_at: 变更生效时间
+  hot_wallet_address: 热钱包地址
+  hot_wallet_private_key: 热钱包私钥
+  bet_amount: 投注金额
+  platform_fee_rate: 平台手续费比例
+  telegram_admin_whitelist: Telegram管理员白名单
+  status: 状态
+  created_at: 创建时间
+  updated_at: 更新时间
+  wallet_cycle: 钱包周期
+  new_wallet_address: 新钱包地址
+  cooldown_minutes: 冷却时间(分钟)
+  startWalletChange: 开始钱包变更
+  cancelWalletChange: 取消钱包变更
+  completeWalletChange: 完成钱包变更
+  walletChangeNormal: 正常
+  walletChangeChanging: 变更中
+  walletChangeConfirm: 确认要开始钱包变更吗？
+  walletChangeCancelConfirm: 确认要取消钱包变更吗？
+  tg_group_name: 群组名称
+
+# 配置变更日志
+gameGroupConfigLog:
+  index: 配置变更日志
+  config_id: 配置ID
+  action: 操作类型
+  source: 来源
+  old_data: 旧数据
+  new_data: 新数据
+  operator_id: 操作者ID
+  created_at: 创建时间
+  sourceAdmin: 管理后台
+  sourceTelegram: Telegram Bot
+  sourceSystem: 系统自动
+  viewHistory: 查看历史
+  walletChanges: 钱包变更历史
+
+# 玩家钱包绑定
+playerWalletBinding:
+  index: 玩家钱包绑定
+  group_id: 群组ID
+  tg_user_id: Telegram用户ID
+  tg_username: Telegram用户名
+  tg_first_name: 名字
+  tg_last_name: 姓氏
+  wallet_address: 钱包地址
+  bind_at: 绑定时间
+  created_at: 创建时间
+  updated_at: 更新时间
+  unbind: 解除绑定
+  unbindConfirm: 确认要解除此绑定吗？
+  batchImport: 批量导入
+  importTemplate: 下载导入模板
+  importSuccess: 导入成功
+  importFailed: 导入失败
+
+# 钱包绑定日志
+playerWalletBindingLog:
+  index: 钱包绑定日志
+  group_id: 群组ID
+  tg_user_id: Telegram用户ID
+  tg_username: Telegram用户名
+  action: 操作类型
+  old_wallet_address: 旧钱包地址
+  new_wallet_address: 新钱包地址
+  source: 来源
+  created_at: 创建时间
+  actionBind: 绑定
+  actionUnbind: 解绑
+  actionUpdate: 更新
+  sourceAdmin: 管理后台
+  sourceTelegram: Telegram Bot
+  sourceSystem: 系统自动
+
+# 蛇身节点
+snakeNode:
+  index: 蛇身节点
+  group_id: 群组ID
+  wallet_cycle: 钱包周期
+  ticket_number: 购彩凭证
+  ticket_serial_no: 凭证流水号
+  player_address: 玩家钱包地址
+  player_tg_username: 玩家Telegram用户名
+  player_tg_user_id: 玩家Telegram用户ID
+  amount: 投注金额
+  tx_hash: 交易哈希
+  block_height: 区块高度
+  daily_sequence: 当天序号
+  status: 状态
+  matched_prize_id: 中奖记录ID
+  created_at: 创建时间
+  statusActive: 活跃
+  statusMatched: 已中奖
+  statusUnmatched: 未中奖
+  statusArchived: 已归档
+  viewActiveNodes: 查看活跃节点
+  viewByWalletCycle: 按钱包周期查看
+  viewByPlayer: 按玩家查看
+  viewByTxHash: 按交易哈希查看
+  dailyStatistics: 当日统计
+  total_nodes: 节点总数
+  total_amount: 投注总额
+  unique_players: 独立玩家数
+  active_nodes: 活跃节点数
+  matched_nodes: 已中奖节点数
+  archive: 归档
+  archiveConfirm: 确认要归档此节点吗？
+  updateStatus: 更新状态
+
+# 中奖记录
+prizeRecord:
+  index: 中奖记录
+  group_id: 群组ID
+  prize_serial_no: 开奖流水号
+  wallet_cycle: 钱包周期
+  ticket_number: 中奖凭证
+  winner_node_id_first: 首个中奖节点ID
+  winner_node_id_last: 最后中奖节点ID
+  winner_node_ids: 所有中奖节点IDs
+  total_amount: 区间总金额
+  platform_fee: 平台手续费
+  fee_rate: 手续费比例
+  prize_pool: 奖池金额
+  prize_amount: 奖金金额
+  prize_per_winner: 每人奖金
+  pool_remaining: 奖池剩余
+  winner_count: 中奖人数
+  status: 状态
+  version: 版本号
+  created_at: 创建时间
+  updated_at: 更新时间
+  statusPending: 待处理
+  statusTransferring: 转账中
+  statusCompleted: 已完成
+  statusFailed: 失败
+  statusPartialFailed: 部分失败
+  viewStatistics: 查看统计
+  viewTransfers: 查看转账详情
+  reprocess: 重新处理
+  reprocessConfirm: 确认要重新处理此中奖记录吗？
+  total_prizes: 中奖次数
+  total_prize_amount: 中奖总额
+  total_winners: 中奖人数
+  total_platform_fee: 平台手续费总额
+  jackpot_count: Jackpot次数
+  range_match_count: 范围匹配次数
+
+# 中奖转账
+prizeTransfer:
+  index: 中奖转账
+  prize_record_id: 中奖记录ID
+  prize_serial_no: 开奖流水号
+  node_id: 节点ID
+  to_address: 收款地址
+  amount: 转账金额
+  tx_hash: 转账交易哈希
+  status: 状态
+  retry_count: 重试次数
+  error_message: 错误信息
+  created_at: 创建时间
+  updated_at: 更新时间
+  statusPending: 待处理
+  statusProcessing: 处理中
+  statusSuccess: 成功
+  statusFailed: 失败
+  viewPending: 查看待处理
+  viewFailed: 查看失败
+  retry: 重试
+  retryConfirm: 确认要重试此转账吗？
+  batchRetry: 批量重试
+  batchRetryConfirm: 确认要批量重试选中的转账吗？
+  markSuccess: 标记为成功
+  markSuccessConfirm: 确认要标记此转账为成功吗？
+  markSuccessWithHash: 请输入交易哈希
+
+# 派奖队列
+dispatchQueue:
+  index: 派奖队列
+  prize_record_id: 中奖记录ID
+  prize_transfer_id: 中奖转账ID
+  group_id: 群组ID
+  prize_serial_no: 开奖流水号
+  priority: 优先级
+  status: 状态
+  retry_count: 重试次数
+  max_retry: 最大重试次数
+  task_data: 任务数据
+  error_message: 错误信息
+  scheduled_at: 计划执行时间
+  started_at: 开始执行时间
+  completed_at: 完成时间
+  version: 版本号
+  created_at: 创建时间
+  statusPending: 待处理
+  statusProcessing: 处理中
+  statusCompleted: 已完成
+  statusFailed: 失败
+  viewPending: 查看待处理
+  viewFailed: 查看失败
+  retry: 重试
+  retryConfirm: 确认要重试此派发吗？
+  batchRetry: 批量重试
+  batchRetryConfirm: 确认要批量重试选中的派发吗？
+  markSuccess: 标记为成功
+  markSuccessConfirm: 确认要标记此派发为成功吗？
+
+# TRON交易日志
+tronTransactionLog:
+  index: TRON交易日志
+  group_id: 群组ID
+  tx_hash: 交易哈希
+  from_address: 发送地址
+  to_address: 接收地址
+  amount: 金额
+  block_height: 区块高度
+  block_timestamp: 区块时间戳
+  status: 交易状态
+  is_valid: 是否有效
+  invalid_reason: 无效原因
+  processed: 是否已处理
+  created_at: 创建时间
+  viewUnprocessed: 查看未处理
+  viewByGroup: 按群组查看
+  viewByTxHash: 按交易哈希查看
+  viewByAddress: 按钱包地址查看
+  viewStatistics: 查看统计
+  total_transactions: 交易总数
+  total_amount: 交易总额
+  valid_transactions: 有效交易数
+  invalid_transactions: 无效交易数
+  processed_transactions: 已处理交易数
+  unprocessed_transactions: 未处理交易数
+  reprocess: 重新处理
+  reprocessConfirm: 确认要重新处理此交易吗？
+  syncTransactions: 同步区块链交易
+  syncTransactionsConfirm: 确认要同步区块链交易吗？
+  start_block: 起始区块高度
+  end_block: 结束区块高度
+
+# Telegram命令消息
+telegramCommandMessage:
+  index: Telegram命令消息
+  group_id: 群组ID
+  group_name: 群组名称
+  tg_chat_id: Telegram群组ID
+  tg_user_id: Telegram用户ID
+  tg_username: Telegram用户名
+  command: 命令类型
+  message_text: 消息文本
+  response_text: 响应文本
+  is_success: 是否成功
+  error_message: 错误信息
+  created_at: 创建时间
+  updated_at: 更新时间
+  viewByGroup: 按群组查看
+  viewByUser: 按用户查看
+  viewByCommand: 按命令查看
+  viewStatistics: 查看统计
+  dailyStatistics: 当日统计
+  total_messages: 消息总数
+  success_messages: 成功消息数
+  failed_messages: 失败消息数
+  commands_breakdown: 命令分布
+  hourly_breakdown: 小时分布
+  exportData: 导出数据
+  exportDataConfirm: 确认要导出数据吗？
+  realDelete: 真实删除
+  realDeleteConfirm: 确认要真实删除选中的消息吗？此操作不可恢复！
