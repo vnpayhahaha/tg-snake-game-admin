@@ -8,9 +8,12 @@
  * @Link   https://github.com/mineadmin
  */
 import MaDialog from '@/components/ma-dialog/index.vue'
-import type { Component } from 'vue'
+import type { Component, Ref } from 'vue'
 
 export interface UseDialogExpose {
+  visible: Ref<boolean>
+  title: Ref<string>
+  data: Ref<any>
   on: {
     ok?: (...args: any[]) => void
     cancel?: (...args: any[]) => void
@@ -20,21 +23,28 @@ export interface UseDialogExpose {
   close: () => void
   setTitle: (title: string) => void
   setAttr: (attr: Record<string, any>) => void
+  ok?: (...args: any[]) => void
 }
 
 export default function useDialog(dialogProps: Record<string, any> | null = null): UseDialogExpose {
   const isOpen = ref<boolean>(false)
   const title = ref<string>('unknown')
+  const data = ref<any>(null)
 
   const openArgs = ref<any[]>([])
   const closeArgs = ref<any[]>([])
   const open = (...args: any[]) => {
     openArgs.value = args
     closeArgs.value = args
+    // 如果传入了数据对象，保存到 data 中
+    if (args.length > 0 && typeof args[0] === 'object') {
+      data.value = args[0]
+    }
     isOpen.value = true
   }
   const close = () => {
     isOpen.value = false
+    data.value = null
   }
 
   const setTitle = (string: string) => title.value = string
@@ -85,6 +95,9 @@ export default function useDialog(dialogProps: Record<string, any> | null = null
   }
 
   return {
+    visible: isOpen,
+    title,
+    data,
     on: on.value,
     Dialog,
     open,

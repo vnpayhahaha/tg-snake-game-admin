@@ -122,7 +122,7 @@ export default function getTableColumns(
     },
     {
       label: () => t('telegramCommandMessage.response_text'),
-      prop: 'response_text',
+      prop: 'response_message',
       minWidth: 200,
       showOverflowTooltip: true,
     },

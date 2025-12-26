@@ -183,6 +183,10 @@ crud:
   callbackNotificationSuccess: 回调通知成功
   success: 成功
   failed: 失败
+  startDate: 开始日期
+  endDate: 结束日期
+  view: 查看
+  index: 序号
 form:
   pleaseInput: 请输入{msg}
   pleaseSelect: 请选择{msg}

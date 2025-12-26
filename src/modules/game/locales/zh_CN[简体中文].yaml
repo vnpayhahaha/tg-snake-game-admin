@@ -416,6 +416,33 @@ tronTransactionLog:
   syncEndBlockTip: 可选，指定结束区块高度
   syncSuccess: 同步成功
 
+# TRON交易日志 (代码中使用的键)
+tronLog:
+  index: TRON交易日志
+  id: ID
+  group_id: 群组ID
+  tx_hash: 交易哈希
+  from_address: 发送地址
+  to_address: 接收地址
+  amount: 金额
+  block_height: 区块高度
+  block_timestamp: 区块时间戳
+  status: 交易状态
+  is_valid: 是否有效
+  valid: 有效
+  invalid: 无效
+  invalid_reason: 无效原因
+  processed: 是否已处理
+  processed_yes: 已处理
+  processed_no: 未处理
+  created_at: 创建时间
+  reprocess: 重新处理
+  reprocessConfirm: 确认要重新处理此交易吗？
+  syncTransactions: 同步区块链交易
+  viewTxHash: 查看交易
+  viewFromAddress: 查看发送地址
+  viewToAddress: 查看接收地址
+
 # Telegram命令消息
 telegramCommandMessage:
   index: Telegram命令消息
