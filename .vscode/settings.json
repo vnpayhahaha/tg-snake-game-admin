@@ -1,0 +1,45 @@
+{
+  "go.gopath": "/Users/daxiong/go/wxhh",
+  "go.formatTool": "goimports",
+  "diffEditor.ignoreTrimWhitespace": true,
+  "go.docsTool": "gogetdoc",
+  "tabnine.experimentalAutoImports": true,
+  "git.enableSmartCommit": true,
+  "git.autofetch": true,
+  "[json]": {
+    "editor.quickSuggestions": {
+      "strings": true
+    },
+    "editor.suggest.insertMode": "replace"
+  },
+
+  //vscode es6语法检测配置
+  "eslint.validate": ["javascript", "javascriptreact", "html", "vue"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
+  "editor.codeActionsOnSaveTimeout": 5000,
+  // 保存时自动格式化
+  "editor.formatOnSave": true,
+  "explorer.confirmDragAndDrop": false,
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "vetur.format.defaultFormatter.js": "none",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "eslint.codeAction.showDocumentation": {
+    "enable": true
+  },
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "i18n-ally.localesPaths": [
+    "src/locales",
+    "src/modules/channel/locales",
+    "src/modules/base/locales",
+    "src/modules/tenant/locales",
+    "src/modules/transaction/locales",
+    "src/plugins/west/front-export/locales",
+    "src/plugins/west/nm-search/locales",
+    "src/plugins/west/sys-settings/locales",
+    "src/plugins/west/tinymce/utils/langs"
+  ]
+}
