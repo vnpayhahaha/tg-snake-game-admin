@@ -109,6 +109,7 @@ gameGroup:
   index: 游戏群组
   config_id: 配置ID
   tg_chat_id: Telegram群组ID
+  tg_chat_title: 群组标题
   prize_pool_amount: 奖池金额
   current_snake_nodes: 当前蛇身节点
   last_snake_nodes: 上次蛇身节点
@@ -132,6 +133,12 @@ gameGroup:
   viewSnake: 查看蛇身
   viewStatistics: 查看统计
   group_name: 群组名称
+  total: 总
+  snakeNodeList: 蛇身节点列表
+  snakeHead: 蛇头
+  snakeTail: 蛇尾
+  won: 已中奖
+  noSnakeNodes: 暂无蛇身节点
   status: 状态
   status_normal: 正常
   status_disabled: 停用

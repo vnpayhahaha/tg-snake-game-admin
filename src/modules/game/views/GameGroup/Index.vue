@@ -20,54 +20,18 @@ import useDialog from '@/hooks/useDialog.ts'
 import { useMessage } from '@/hooks/useMessage.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
 
-import Form from './Form.vue'
+import SnakeView from './SnakeView.vue'
 
 defineOptions({ name: 'game:gameGroup' })
 
 const proTableRef = ref<MaProTableExpose>() as Ref<MaProTableExpose>
-const formRef = ref()
 const selections = ref<any[]>([])
 const i18n = useTrans() as TransType
 const t = i18n.globalTrans
-const local = i18n.localTrans
 const msg = useMessage()
 
 // 弹窗配置
-const maDialog: UseDialogExpose = useDialog({
-  // 保存数据
-  ok: ({ formType }, okLoadingState: (state: boolean) => void) => {
-    okLoadingState(true)
-    if (['add', 'edit'].includes(formType)) {
-      const elForm = formRef.value.maForm.getElFormRef()
-      // 验证通过后
-      elForm.validate().then(() => {
-        switch (formType) {
-          // 新增
-          case 'add':
-            formRef.value.add().then((res: any) => {
-              res.code === ResultCode.SUCCESS ? msg.success(t('crud.createSuccess')) : msg.error(res.message)
-              maDialog.close()
-              proTableRef.value.refresh()
-            }).catch((err: any) => {
-              msg.alertError(err)
-            })
-            break
-          // 修改
-          case 'edit':
-            formRef.value.edit().then((res: any) => {
-              res.code === 200 ? msg.success(t('crud.updateSuccess')) : msg.error(res.message)
-              maDialog.close()
-              proTableRef.value.refresh()
-            }).catch((err: any) => {
-              msg.alertError(err)
-            })
-            break
-        }
-      }).catch()
-    }
-    okLoadingState(false)
-  },
-})
+const maDialog: UseDialogExpose = useDialog({})
 
 // 参数配置
 const options = ref<MaProTableOptions>({
@@ -125,19 +89,6 @@ function handleDelete() {
 <template>
   <div class="mine-layout pt-3">
     <MaProTable ref="proTableRef" :options="options" :schema="schema">
-      <template #actions>
-        <el-button
-          v-auth="['tg_game:group:create']"
-          type="primary"
-          @click="() => {
-            maDialog.setTitle(t('crud.add'))
-            maDialog.open({ formType: 'add' })
-          }"
-        >
-          {{ t('crud.add') }}
-        </el-button>
-      </template>
-
       <template #toolbarLeft>
         <el-button
           v-auth="['tg_game:group:delete']"
@@ -152,25 +103,14 @@ function handleDelete() {
 
       <!-- 数据为空时 -->
       <template #empty>
-        <el-empty>
-          <el-button
-            v-auth="['tg_game:group:create']"
-            type="primary"
-            @click="() => {
-              maDialog.setTitle(t('crud.add'))
-              maDialog.open({ formType: 'add' })
-            }"
-          >
-            {{ t('crud.add') }}
-          </el-button>
-        </el-empty>
+        <el-empty />
       </template>
     </MaProTable>
 
     <component :is="maDialog.Dialog">
       <template #default="{ formType, data }">
-        <!-- 新增、编辑表单 -->
-        <Form ref="formRef" :form-type="formType" :data="data" />
+        <!-- 查看蛇身弹窗 -->
+        <SnakeView v-if="formType === 'viewSnake'" :data="data" />
       </template>
     </component>
   </div>

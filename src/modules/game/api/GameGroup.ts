@@ -32,7 +32,13 @@ export interface GameGroupVo {
   // 创建时间
   created_at: string
   // 更新时间
-  updated_at: string
+  updated_at: string,
+  config: {
+    id: number
+    status: number
+    tenant_id: number
+    tg_chat_title: string
+  }
 }
 
 export interface GroupStatisticsVo {

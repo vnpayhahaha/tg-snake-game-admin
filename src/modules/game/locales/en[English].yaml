@@ -6,6 +6,7 @@ gameGroup:
   index: Game Groups
   config_id: Config ID
   tg_chat_id: Telegram Chat ID
+  tg_chat_title: Chat Title
   prize_pool_amount: Prize Pool Amount
   current_snake_nodes: Current Snake Nodes
   last_snake_nodes: Last Snake Nodes
@@ -29,6 +30,12 @@ gameGroup:
   viewSnake: View Snake
   viewStatistics: View Statistics
   group_name: Group Name
+  total: Total
+  snakeNodeList: Snake Node List
+  snakeHead: Head
+  snakeTail: Tail
+  won: Won
+  noSnakeNodes: No snake nodes
   status: Status
 
 # Game Group Config
