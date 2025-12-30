@@ -152,7 +152,7 @@ function handleDelete() {
 <template>
   <div class="mine-layout pt-3">
     <MaProTable ref="proTableRef" :options="options" :schema="schema">
-      <template #actions>
+      <!-- <template #actions>
         <el-button
           v-auth="['tg_game:config:create']"
           type="primary"
@@ -163,9 +163,9 @@ function handleDelete() {
         >
           {{ t('crud.add') }}
         </el-button>
-      </template>
+      </template> -->
 
-      <template #toolbarLeft>
+      <!-- <template #toolbarLeft>
         <el-button
           v-auth="['tg_game:config:delete']"
           type="danger"
@@ -175,10 +175,10 @@ function handleDelete() {
         >
           {{ t('crud.delete') }}
         </el-button>
-      </template>
+      </template> -->
 
       <!-- 数据为空时 -->
-      <template #empty>
+      <!-- <template #empty>
         <el-empty>
           <el-button
             v-auth="['tg_game:config:create']"
@@ -191,7 +191,7 @@ function handleDelete() {
             {{ t('crud.add') }}
           </el-button>
         </el-empty>
-      </template>
+      </template> -->
     </MaProTable>
 
     <!-- 主表单弹窗 -->
