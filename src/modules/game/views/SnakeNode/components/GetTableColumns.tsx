@@ -18,6 +18,7 @@ import hasAuth from '@/utils/permission/hasAuth.ts'
 import { archive, deleteByIds, updateStatus } from '~/game/api/SnakeNode.ts'
 import { useMessage } from '@/hooks/useMessage.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
+import { selectStatus } from '@/modules/Common'
 
 export default function getTableColumns(
   dialog: UseDialogExpose,
@@ -122,14 +123,7 @@ export default function getTableColumns(
     {
       label: () => t('snakeNode.player_address'),
       prop: 'player_address',
-      width: 200,
-      showOverflowTooltip: true,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'copyable',
-        },
-      },
+      width: 320,
     },
     {
       label: () => t('snakeNode.player_tg_username'),
@@ -158,14 +152,7 @@ export default function getTableColumns(
     {
       label: () => t('snakeNode.tx_hash'),
       prop: 'tx_hash',
-      width: 200,
-      showOverflowTooltip: true,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'copyable',
-        },
-      },
+      width: 340,
     },
     {
       label: () => t('snakeNode.block_height'),
@@ -190,40 +177,25 @@ export default function getTableColumns(
       prop: 'status',
       width: 100,
       cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'tag',
-          format: (row: SnakeNodeVo) => {
-            const statusMap: Record<number, { label: string, color: string }> = {
-              1: { label: t('snakeNode.status_active'), color: 'success' },
-              2: { label: t('snakeNode.status_matched'), color: 'warning' },
-              3: { label: t('snakeNode.status_unmatched'), color: 'info' },
-            }
-            return statusMap[row.status]?.label || t('crud.unknown')
+          name: 'nmCellEnhance',
+          props: {
+            type: 'tag',
+            api: () => new Promise(resolve => resolve(selectStatus('tg_snake_node', 'status_list'))),
+            dataHandle: (response: any) => {
+              return response.data?.map((item: Common.StatusOptionItem) => {
+                return { label: `${item.label}`, value: item.value }
+              })
+            },
+            props: {
+              effect: 'dark',
+            },
           },
-          color: (row: SnakeNodeVo) => {
-            const statusMap: Record<number, string> = {
-              1: 'success',
-              2: 'warning',
-              3: 'info',
-            }
-            return statusMap[row.status] || 'info'
-          },
-        },
       },
     },
     {
       label: () => t('snakeNode.matched_prize_id'),
       prop: 'matched_prize_id',
       width: 120,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'tag',
-          effect: 'plain',
-          format: (row: SnakeNodeVo) => row.matched_prize_id ? `#${row.matched_prize_id}` : '-',
-        },
-      },
     },
     {
       label: () => t('snakeNode.created_at'),
@@ -250,13 +222,6 @@ export default function getTableColumns(
             text: () => t('snakeNode.setActive'),
             onClick: ({ row }: any) => handleUpdateStatus(row, 1),
             actionType: 'success',
-          },
-          {
-            name: 'delete',
-            show: () => showBtn('tg_game:snake_node:delete'),
-            text: () => t('crud.delete'),
-            onClick: ({ row }: any) => handleDelete(row),
-            actionType: 'danger',
           },
         ],
         moreActions: [

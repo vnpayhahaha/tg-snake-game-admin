@@ -83,19 +83,6 @@ function handleDelete() {
 <template>
   <div class="mine-layout pt-3">
     <MaProTable ref="proTableRef" :options="options" :schema="schema">
-      <template #toolbarLeft>
-        <el-button-group>
-          <el-button
-            v-auth="['tg_game:snake_node:delete']"
-            type="danger"
-            plain
-            :disabled="selections.length < 1"
-            @click="handleDelete"
-          >
-            {{ t('crud.delete') }}
-          </el-button>
-        </el-button-group>
-      </template>
     </MaProTable>
   </div>
 </template>
