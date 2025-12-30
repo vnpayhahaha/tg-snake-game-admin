@@ -85,6 +85,10 @@ gameGroupConfigLog:
   sourceSystem: System Auto
   viewHistory: View History
   walletChanges: Wallet Change History
+  change_params: Change Params
+  operator: Operator
+  operator_ip: Operator IP
+  tg_message_id: TG Message ID
 
 # Player Wallet Binding
 playerWalletBinding:

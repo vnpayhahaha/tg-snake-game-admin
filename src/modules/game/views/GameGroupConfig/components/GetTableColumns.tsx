@@ -117,7 +117,7 @@ export default function getTableColumns(
               effect: 'dark',
             },
           },
-        },
+      },
     },
     // 创建时间
     {

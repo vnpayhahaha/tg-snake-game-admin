@@ -11,32 +11,55 @@
 /**
  * 配置变更日志表格列配置
  */
+import { selectStatus } from '@/modules/Common'
 import type { MaProTableColumns } from '@mineadmin/pro-table'
-import type { GameGroupConfigLogVo } from '~/game/api/GameGroupConfigLog.ts'
+import { hi } from 'element-plus/es/locale/index.mjs'
+
+// 格式化JSON显示
+const formatJson = (jsonString: string) => {
+  if (!jsonString) return '-'
+  try {
+    const parsed = typeof jsonString === 'string' ? JSON.parse(jsonString) : jsonString
+    return JSON.stringify(parsed, null, 2)
+  } catch {
+    return jsonString
+  }
+}
 
 export default function getTableColumns(
-  t: any,
-  proTableRef: any
+  t: any
 ): MaProTableColumns {
-  // 变更来源映射
-  const changeSourceMap: Record<number, string> = {
-    1: t('gameGroupConfigLog.sourceAdmin'),
-    2: t('gameGroupConfigLog.sourceTelegram'),
-    3: t('gameGroupConfigLog.sourceSystem'),
-  }
-
-  // 变更来源颜色映射
-  const changeSourceColorMap: Record<number, string> = {
-    1: 'primary',
-    2: 'success',
-    3: 'info',
-  }
-
   return [
     {
       label: () => 'ID',
       prop: 'id',
       width: 80,
+      hide: true,
+    },
+    // 展开行
+    {
+      label: () => t('gameGroupConfigLog.change_params'),
+      prop: 'change_params',
+      type: 'expand',
+      width: 100,
+      cellRender: ({ row }) => {
+        return (
+          <div style={{ padding: '20px' }}>
+            <div class="expand-section">
+              <h4 style={{ margin: '0 0 12px 0', color: '#409eff', borderBottom: '1px solid #e4e7ed', paddingBottom: '8px' }}>
+                {t('gameGroupConfigLog.change_params')}
+              </h4>
+              <el-input
+                type="textarea"
+                readonly
+                rows={10}
+                value={formatJson(row.change_params)}
+                style={{ marginBottom: '16px' }}
+              />
+            </div>
+          </div>
+        )
+      }
     },
     {
       label: () => t('gameGroupConfigLog.config_id'),
@@ -47,66 +70,41 @@ export default function getTableColumns(
       label: () => 'Telegram群组ID',
       prop: 'tg_chat_id',
       width: 150,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'copyable',
-        },
-      },
     },
     {
       label: () => t('gameGroupConfigLog.source'),
       prop: 'change_source',
       width: 120,
       cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'tag',
-          format: (row: GameGroupConfigLogVo) => changeSourceMap[row.change_source] || '未知',
-          color: (row: GameGroupConfigLogVo) => changeSourceColorMap[row.change_source] || 'info',
-        },
+          name: 'nmCellEnhance',
+          props: {
+            type: 'tag',
+            api: () => new Promise(resolve => resolve(selectStatus('tg_game_group_config_log', 'change_source_list'))),
+            dataHandle: (response: any) => {
+              return response.data?.map((item: Common.StatusOptionItem) => {
+                return { label: `${item.label}`, value: item.value }
+              })
+            },
+            props: {
+              effect: 'dark',
+            },
+          },
       },
     },
     {
-      label: () => '操作人',
+      label: () => t('gameGroupConfigLog.operator'),
       prop: 'operator',
       width: 120,
     },
     {
-      label: () => '操作IP',
+      label: () => t('gameGroupConfigLog.operator_ip'),
       prop: 'operator_ip',
-      width: 140,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'copyable',
-        },
-      },
+      minWidth: 140,
     },
     {
-      label: () => 'TG消息ID',
+      label: () => t('gameGroupConfigLog.tg_message_id'),
       prop: 'tg_message_id',
       width: 120,
-    },
-    {
-      label: () => '变更参数',
-      prop: 'change_params',
-      minWidth: 200,
-      showOverflowTooltip: true,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          format: (row: GameGroupConfigLogVo) => {
-            if (!row.change_params) return '-'
-            try {
-              return JSON.stringify(JSON.parse(row.change_params), null, 2)
-            }
-            catch {
-              return row.change_params
-            }
-          },
-        },
-      },
     },
     {
       label: () => t('gameGroupConfigLog.created_at'),
