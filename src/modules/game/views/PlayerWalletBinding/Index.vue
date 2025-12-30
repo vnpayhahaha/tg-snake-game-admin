@@ -74,7 +74,7 @@ function handleDelete() {
 <template>
   <div class="mine-layout pt-3">
     <MaProTable ref="proTableRef" :options="options" :schema="schema">
-      <template #toolbarLeft>
+      <!-- <template #toolbarLeft>
         <el-button-group>
           <el-button
             v-auth="['tg_game:wallet_binding:delete']"
@@ -86,7 +86,7 @@ function handleDelete() {
             {{ t('crud.delete') }}
           </el-button>
         </el-button-group>
-      </template>
+      </template> -->
     </MaProTable>
   </div>
 </template>

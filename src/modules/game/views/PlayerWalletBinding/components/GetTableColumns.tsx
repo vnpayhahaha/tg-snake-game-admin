@@ -75,12 +75,6 @@ export default function getTableColumns(
       label: () => t('playerWalletBinding.tg_user_id'),
       prop: 'tg_user_id',
       width: 150,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'copyable',
-        },
-      },
     },
     {
       label: () => t('playerWalletBinding.tg_username'),
@@ -100,14 +94,7 @@ export default function getTableColumns(
     {
       label: () => t('playerWalletBinding.wallet_address'),
       prop: 'wallet_address',
-      width: 200,
-      showOverflowTooltip: true,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'copyable',
-        },
-      },
+      width: 300,
     },
     {
       label: () => t('playerWalletBinding.bind_at'),
@@ -132,13 +119,6 @@ export default function getTableColumns(
             text: () => t('playerWalletBinding.unbind'),
             onClick: ({ row }: any) => handleUnbind(row),
             actionType: 'warning',
-          },
-          {
-            name: 'delete',
-            show: () => showBtn('tg_game:wallet_binding:delete'),
-            text: () => t('crud.delete'),
-            onClick: ({ row }: any) => handleDelete(row),
-            actionType: 'danger',
           },
         ],
       },
