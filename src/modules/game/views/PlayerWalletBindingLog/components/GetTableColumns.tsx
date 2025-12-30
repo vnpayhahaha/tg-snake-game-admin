@@ -11,6 +11,7 @@
 /**
  * 钱包绑定日志表格列配置
  */
+import { selectStatus } from '@/modules/Common'
 import type { MaProTableColumns } from '@mineadmin/pro-table'
 import type { PlayerWalletBindingLogVo } from '~/game/api/PlayerWalletBindingLog.ts'
 
@@ -42,12 +43,6 @@ export default function getTableColumns(t: any): MaProTableColumns {
       label: () => t('playerWalletBindingLog.tg_user_id'),
       prop: 'tg_user_id',
       width: 150,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'copyable',
-        },
-      },
     },
     {
       label: () => t('playerWalletBindingLog.tg_username'),
@@ -59,38 +54,30 @@ export default function getTableColumns(t: any): MaProTableColumns {
       prop: 'change_type',
       width: 100,
       cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'tag',
-          format: (row: PlayerWalletBindingLogVo) => changeTypeMap[row.change_type] || '未知',
-          color: (row: PlayerWalletBindingLogVo) => changeTypeColorMap[row.change_type] || 'info',
-        },
+            name: 'nmCellEnhance',
+             props: {
+               type: 'tag',
+               api: () => new Promise(resolve => resolve(selectStatus('tg_player_wallet_binding_log', 'change_type_list'))),
+               dataHandle: (response: any) => {
+                 return response.data?.map((item: Common.StatusOptionItem) => {
+                   return { label: `${item.label}`, value: item.value }
+                 })
+               },
+               props: {
+                 effect: 'dark',
+               },
+             },
       },
     },
     {
       label: () => t('playerWalletBindingLog.old_wallet_address'),
       prop: 'old_wallet_address',
-      width: 200,
-      showOverflowTooltip: true,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'copyable',
-          format: (row: PlayerWalletBindingLogVo) => row.old_wallet_address || '-',
-        },
-      },
+      width: 300,
     },
     {
       label: () => t('playerWalletBindingLog.new_wallet_address'),
       prop: 'new_wallet_address',
-      width: 200,
-      showOverflowTooltip: true,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'copyable',
-        },
-      },
+      width: 300,
     },
     {
       label: () => t('playerWalletBindingLog.created_at'),
