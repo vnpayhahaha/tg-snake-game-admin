@@ -17,6 +17,7 @@ import hasAuth from '@/utils/permission/hasAuth.ts'
 import { retry, markSuccess, deleteByIds } from '~/game/api/DispatchQueue.ts'
 import { useMessage } from '@/hooks/useMessage.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
+import { selectStatus } from '@/modules/Common'
 
 export default function getTableColumns(
   t: any,
@@ -117,13 +118,6 @@ export default function getTableColumns(
       label: () => t('dispatchQueue.prize_serial_no'),
       prop: 'prize_serial_no',
       width: 180,
-      showOverflowTooltip: true,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'copyable',
-        },
-      },
     },
     {
       label: () => t('dispatchQueue.priority'),
@@ -138,8 +132,15 @@ export default function getTableColumns(
         name: 'nmCellEnhance',
         props: {
           type: 'tag',
-          format: (row: DispatchQueueVo) => statusMap[row.status] || '未知',
-          color: (row: DispatchQueueVo) => statusColorMap[row.status] || 'info',
+          api: () => new Promise(resolve => resolve(selectStatus('tg_prize_dispatch_queue', 'status_list'))),
+          dataHandle: (response: any) => {
+            return response.data?.map((item: Common.StatusOptionItem) => {
+              return { label: `${item.label}`, value: item.value }
+            })
+          },
+          props: {
+            effect: 'dark',
+          },
         },
       },
     },

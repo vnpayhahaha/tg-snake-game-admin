@@ -18,6 +18,7 @@ import hasAuth from '@/utils/permission/hasAuth.ts'
 import { deleteByIds, reprocess, updateStatus } from '~/game/api/PrizeRecord.ts'
 import { useMessage } from '@/hooks/useMessage.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
+import { selectStatus } from '@/modules/Common'
 
 export default function getTableColumns(
   dialog: UseDialogExpose,
@@ -99,13 +100,6 @@ export default function getTableColumns(
       label: () => t('prizeRecord.prize_serial_no'),
       prop: 'prize_serial_no',
       width: 180,
-      showOverflowTooltip: true,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'copyable',
-        },
-      },
     },
     {
       label: () => t('prizeRecord.wallet_cycle'),
@@ -235,25 +229,14 @@ export default function getTableColumns(
         name: 'nmCellEnhance',
         props: {
           type: 'tag',
-          format: (row: PrizeRecordVo) => {
-            const statusMap: Record<number, { label: string, color: string }> = {
-              1: { label: t('prizeRecord.status_pending'), color: 'info' },
-              2: { label: t('prizeRecord.status_processing'), color: 'warning' },
-              3: { label: t('prizeRecord.status_completed'), color: 'success' },
-              4: { label: t('prizeRecord.status_failed'), color: 'danger' },
-              5: { label: t('prizeRecord.status_partial_failed'), color: 'warning' },
-            }
-            return statusMap[row.status]?.label || t('crud.unknown')
+          api: () => new Promise(resolve => resolve(selectStatus('tg_prize_record', 'status_list'))),
+          dataHandle: (response: any) => {
+            return response.data?.map((item: Common.StatusOptionItem) => {
+              return { label: `${item.label}`, value: item.value }
+            })
           },
-          color: (row: PrizeRecordVo) => {
-            const statusMap: Record<number, string> = {
-              1: 'info',
-              2: 'warning',
-              3: 'success',
-              4: 'danger',
-              5: 'warning',
-            }
-            return statusMap[row.status] || 'info'
+          props: {
+            effect: 'dark',
           },
         },
       },
@@ -266,6 +249,7 @@ export default function getTableColumns(
     {
       label: () => t('crud.operation'),
       fixed: 'right',
+      width: 180,
       type: 'operation',
       showOverflowTooltip: false,
       operationConfigure: {
@@ -283,13 +267,6 @@ export default function getTableColumns(
             text: () => t('prizeRecord.reprocess'),
             onClick: ({ row }: any) => handleReprocess(row),
             actionType: 'warning',
-          },
-          {
-            name: 'delete',
-            show: () => showBtn('tg_game:prize:delete'),
-            text: () => t('crud.delete'),
-            onClick: ({ row }: any) => handleDelete(row),
-            actionType: 'danger',
           },
         ],
       },

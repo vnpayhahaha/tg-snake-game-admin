@@ -202,39 +202,5 @@ export default function getTableColumns(
       prop: 'created_at',
       width: 180,
     },
-    {
-      label: () => t('crud.operation'),
-      fixed: 'right',
-      type: 'operation',
-      showOverflowTooltip: false,
-      operationConfigure: {
-        actions: [
-          {
-            name: 'archive',
-            show: (row: SnakeNodeVo) => showBtn('tg_game:snake_node:archive') && row.status === 1,
-            text: () => t('snakeNode.archive'),
-            onClick: ({ row }: any) => handleArchive(row),
-            actionType: 'warning',
-          },
-          {
-            name: 'updateStatusToActive',
-            show: (row: SnakeNodeVo) => showBtn('tg_game:snake_node:updateStatus') && row.status !== 1,
-            text: () => t('snakeNode.setActive'),
-            onClick: ({ row }: any) => handleUpdateStatus(row, 1),
-            actionType: 'success',
-          },
-        ],
-        moreActions: [
-          {
-            name: 'viewTxHash',
-            show: (row: SnakeNodeVo) => !!row.tx_hash,
-            text: () => t('snakeNode.viewTxHash'),
-            onClick: ({ row }: any) => {
-              window.open(`https://tronscan.org/#/transaction/${row.tx_hash}`, '_blank')
-            },
-          },
-        ],
-      },
-    },
   ]
 }

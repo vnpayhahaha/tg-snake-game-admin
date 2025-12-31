@@ -18,6 +18,7 @@ import hasAuth from '@/utils/permission/hasAuth.ts'
 import { deleteByIds, markSuccess, retry } from '~/game/api/PrizeTransfer.ts'
 import { useMessage } from '@/hooks/useMessage.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
+import { selectStatus } from '@/modules/Common'
 
 export default function getTableColumns(
   dialog: UseDialogExpose,
@@ -97,13 +98,6 @@ export default function getTableColumns(
       label: () => t('prizeTransfer.prize_serial_no'),
       prop: 'prize_serial_no',
       width: 180,
-      showOverflowTooltip: true,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'copyable',
-        },
-      },
     },
     {
       label: () => t('prizeTransfer.node_id'),
@@ -113,14 +107,7 @@ export default function getTableColumns(
     {
       label: () => t('prizeTransfer.to_address'),
       prop: 'to_address',
-      width: 200,
-      showOverflowTooltip: true,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'copyable',
-        },
-      },
+      width: 300,
     },
     {
       label: () => t('prizeTransfer.amount'),
@@ -139,14 +126,7 @@ export default function getTableColumns(
     {
       label: () => t('prizeTransfer.tx_hash'),
       prop: 'tx_hash',
-      width: 200,
-      showOverflowTooltip: true,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'copyable',
-        },
-      },
+      width: 300,
     },
     {
       label: () => t('prizeTransfer.status'),
@@ -156,26 +136,17 @@ export default function getTableColumns(
         name: 'nmCellEnhance',
         props: {
           type: 'tag',
-          format: (row: PrizeTransferVo) => {
-            const statusMap: Record<number, { label: string, color: string }> = {
-              1: { label: t('prizeTransfer.status_pending'), color: 'info' },
-              2: { label: t('prizeTransfer.status_processing'), color: 'warning' },
-              3: { label: t('prizeTransfer.status_success'), color: 'success' },
-              4: { label: t('prizeTransfer.status_failed'), color: 'danger' },
-            }
-            return statusMap[row.status]?.label || t('crud.unknown')
+          api: () => new Promise(resolve => resolve(selectStatus('tg_prize_transfer', 'status_list'))),
+          dataHandle: (response: any) => {
+            return response.data?.map((item: Common.StatusOptionItem) => {
+              return { label: `${item.label}`, value: item.value }
+            })
           },
-          color: (row: PrizeTransferVo) => {
-            const statusMap: Record<number, string> = {
-              1: 'info',
-              2: 'warning',
-              3: 'success',
-              4: 'danger',
-            }
-            return statusMap[row.status] || 'info'
+          props: {
+            effect: 'dark',
           },
         },
-      },
+},
     },
     {
       label: () => t('prizeTransfer.retry_count'),
@@ -200,47 +171,6 @@ export default function getTableColumns(
       label: () => t('prizeTransfer.created_at'),
       prop: 'created_at',
       width: 180,
-    },
-    {
-      label: () => t('crud.operation'),
-      fixed: 'right',
-      type: 'operation',
-      showOverflowTooltip: false,
-      operationConfigure: {
-        actions: [
-          {
-            name: 'retry',
-            show: (row: PrizeTransferVo) => showBtn('tg_game:prize_transfer:retry') && row.status === 4,
-            text: () => t('prizeTransfer.retry'),
-            onClick: ({ row }: any) => handleRetry(row),
-            actionType: 'warning',
-          },
-          {
-            name: 'markSuccess',
-            show: (row: PrizeTransferVo) => showBtn('tg_game:prize_transfer:markSuccess') && row.status === 4,
-            text: () => t('prizeTransfer.markSuccess'),
-            onClick: ({ row }: any) => handleMarkSuccess(row),
-            actionType: 'success',
-          },
-          {
-            name: 'delete',
-            show: () => showBtn('tg_game:prize_transfer:delete'),
-            text: () => t('crud.delete'),
-            onClick: ({ row }: any) => handleDelete(row),
-            actionType: 'danger',
-          },
-        ],
-        moreActions: [
-          {
-            name: 'viewTxHash',
-            show: (row: PrizeTransferVo) => !!row.tx_hash,
-            text: () => t('prizeTransfer.viewTxHash'),
-            onClick: ({ row }: any) => {
-              window.open(`https://tronscan.org/#/transaction/${row.tx_hash}`, '_blank')
-            },
-          },
-        ],
-      },
     },
   ]
 }
