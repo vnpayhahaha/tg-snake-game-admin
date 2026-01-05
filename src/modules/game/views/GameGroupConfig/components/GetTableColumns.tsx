@@ -54,7 +54,7 @@ export default function getTableColumns(
     {
       label: () => t('gameGroupConfig.wallet_address'),
       prop: 'wallet_address',
-      width: '280px',
+      minWidth: '280px',
       showOverflowTooltip: true,
     },
     // 投注金额

@@ -72,12 +72,12 @@ export default function getTableColumns(t: any): MaProTableColumns {
     {
       label: () => t('playerWalletBindingLog.old_wallet_address'),
       prop: 'old_wallet_address',
-      width: 300,
+      minWidth: 300,
     },
     {
       label: () => t('playerWalletBindingLog.new_wallet_address'),
       prop: 'new_wallet_address',
-      width: 300,
+      minWidth: 300,
     },
     {
       label: () => t('playerWalletBindingLog.created_at'),

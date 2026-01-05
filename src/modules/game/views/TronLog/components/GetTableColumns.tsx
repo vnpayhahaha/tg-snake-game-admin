@@ -76,38 +76,17 @@ export default function getTableColumns(
     {
       label: () => t('tronLog.tx_hash'),
       prop: 'tx_hash',
-      width: 200,
-      showOverflowTooltip: true,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'copyable',
-        },
-      },
+      width: 280,
     },
     {
       label: () => t('tronLog.from_address'),
       prop: 'from_address',
       width: 180,
-      showOverflowTooltip: true,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'copyable',
-        },
-      },
     },
     {
       label: () => t('tronLog.to_address'),
       prop: 'to_address',
       width: 180,
-      showOverflowTooltip: true,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'copyable',
-        },
-      },
     },
     {
       label: () => t('tronLog.amount'),
@@ -132,15 +111,10 @@ export default function getTableColumns(
       label: () => t('tronLog.block_timestamp'),
       prop: 'block_timestamp',
       width: 180,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          format: (row: TronTransactionLogVo) => {
+      cellRender: ({ row }) => {
             const date = new Date(row.block_timestamp * 1000)
             return date.toLocaleString('zh-CN')
           },
-        },
-      },
     },
     {
       label: () => t('tronLog.status'),
@@ -171,7 +145,6 @@ export default function getTableColumns(
       label: () => t('tronLog.invalid_reason'),
       prop: 'invalid_reason',
       minWidth: 200,
-      showOverflowTooltip: true,
     },
     {
       label: () => t('tronLog.processed'),
